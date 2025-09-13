@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AppointmentSimulator.ViewModels"
+             x:Class="AppointmentSimulator.Pages.AddNewAppointmentPage"
+             Title="Agregar Cita">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AppointmentViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Nombre del Alumno" FontAttributes="Bold"/>
+            <Entry Placeholder="Nombre" Text="{Binding Name}" />
+
+            <Label Text="Asunto" FontAttributes="Bold"/>
+            <Entry Placeholder="Asunto" Text="{Binding Subject}" />
+
+            <Label Text="Fecha de la Cita" FontAttributes="Bold"/>
+            <DatePicker Date="{Binding AppointmentDate}" />
+
+            <Label Text="Hora de Inicio" FontAttributes="Bold"/>
+            <TimePicker Time="{Binding StartingTime}" />
+
+            <Label Text="Hora de Fin" FontAttributes="Bold"/>
+            <TimePicker Time="{Binding EndingTime}" />
+
+            <Button Text="Agregar Cita"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    Command="{Binding AddAppointmentCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
