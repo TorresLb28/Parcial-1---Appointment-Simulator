@@ -1,72 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppointmentSimulator.Pages.MainPage">
+             xmlns:viewmodels="clr-namespace:AppointmentSimulator.ViewModels"
+             xmlns:pages="clr-namespace:AppointmentSimulator.Pages"
+             x:Class="AppointmentSimulator.MainPage"
+             Title="Citas">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20"
-                             Spacing="15">
+    <ContentPage.BindingContext>
+        <viewmodels:AppointmentViewModel />
+    </ContentPage.BindingContext>
 
-            <CollectionView x:Name="AppointmentsCollectionView"
-                            SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+    <VerticalStackLayout Padding="20" Spacing="15">
 
-                            <Label Text="Nombre:"
-                                   Grid.Column="0"
-                                   Grid.Row="0" 
-                                   FontAttributes="Bold"/>
-                            <Label Text="Asunto"
-                                   Grid.Column="0"
-                                   Grid.Row="1"
-                                   FontAttributes="Bold" />
-                            <Label Text="Fecha de la cita:"
-                                   Grid.Column="0"
-                                   Grid.Row="2"
-                                   FontAttributes="Bold" />
-                            <Label Text="Hora:"
-                                   Grid.Column="0"
-                                   Grid.Row="3"
-                                   FontAttributes="Bold" />
+        <Button Text="Nueva Cita"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                Clicked="OnNewAppointmentClicked"/>
 
-                            <Label Text="{Binding Name}"
-                                   Grid.Column="1"
-                                   Grid.Row="0" />
-                            <Label Text="{Binding Subject}"
-                                   Grid.Column="1"
-                                   Grid.Row="1" />
-                            <Label Text="{Binding AppointmentDate, StringFormat='{dd/MM/yyyy}'}"
-                                   Grid.Column="1"
-                                   Grid.Row="2" />
-                            <HorizontalStackLayout Grid.Column="1"
-                                                   Grid.Row="3">
-                                <Label Text="{Binding StartingTime, StringFormat='{HH:mm}'}" />
-                                <Label>-</Label>
-                                <Label Text="{Binding EndingTime, StringFormat='{HH:mm}'}" />
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <HorizontalStackLayout VerticalOptions="Center"
-                                   HorizontalOptions="Center"
-                                   Spacing="10">
-                <Button Text="Agregar Cita" />
-                <Button Text="Eliminar Cita Seleccionada" />
-            </HorizontalStackLayout>
+        <CollectionView ItemsSource="{Binding Appointments}"
+                        SelectedItem="{Binding SelectedAppointment}"
+                        SelectionMode="Single"
+                        HeightRequest="400">
 
-        </VerticalStackLayout>
-    </ScrollView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="LightGray" Margin="5" Padding="10">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Name}" FontAttributes="Bold"/>
+                            <Label Text="{Binding Subject}" />
+                            <Label Text="{Binding AppointmentDate}" />
+                            <Label Text="{Binding StartingTime}" />
+                            <Label Text="{Binding EndingTime}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
+        <Button Text="Eliminar Cita"
+                BackgroundColor="Red"
+                TextColor="White"
+                Command="{Binding DeleteAppointmentCommand}" />
+
+    </VerticalStackLayout>
 </ContentPage>

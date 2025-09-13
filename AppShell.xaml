@@ -3,12 +3,12 @@
     x:Class="AppointmentSimulator.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:AppointmentSimulator.Pages"
+    xmlns:local="clr-namespace:AppointmentSimulator"
     Title="AppointmentSimulator">
 
     <ShellContent
         Title="Appointment Simulator"
-        ContentTemplate="{DataTemplate pages:MainPage}"
+        ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
 </Shell>
